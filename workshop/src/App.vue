@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-vars */
+
 <template>
   <div>
 <SearchBar @termChange="onTermChange"></SearchBar>
-<VideoList></VideoList>
+<VideoList :videos="videos"></VideoList>
   </div>  
 </template>
 
@@ -14,11 +12,16 @@ import SearchBar from './components/SearchBar';
 import VideoList from './components/VideoList';
 
 
-const API_KEY = 'AIzaSyAYY8ihb_BoBVvWwB0TxoUmWKP7dBFy7zs';
+const API_KEY = 'AIzaSyAG3UuIUZFf3vtZbg6QZQM4DkE6pTIO9UM';
 export default {
+name: 'App',
 components: { SearchBar,
 VideoList },
-name: 'App',
+data(){
+  return {  
+      videos: []
+  };
+},
 methods:{
     onTermChange(searchTearm){
         axios
@@ -29,7 +32,9 @@ methods:{
                 part: 'snippet',
                 q: searchTearm
             }
-        }).then(response => console.log(response));
+        }).then(response => {
+            this.videos= response.data.items;
+        });
     }
 }
 };
