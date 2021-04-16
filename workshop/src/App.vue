@@ -2,32 +2,35 @@
 <template>
   <div class="container">
 <SearchBar @termChange="onTermChange"></SearchBar>
-<VideoDetail :video="selectedVideo"/>
-<VideoList @videoSelect="onVideoSelect" :videos="videos"></VideoList>
-
+<div class="row">
+<VideoDetail :video="selectedVideo"></VideoDetail>
+<VideoList @vedioSelect="onVideoSelect" :videos="videos"></VideoList>
+</div>
   </div>  
 </template>
 
 <script>
 import axios from 'axios';
 import SearchBar from './components/SearchBar';
+import VideoDetail from './components/VideoDetail';
 import VideoList from './components/VideoList';
-import VideoDetail from './components/VideoDetail'
+
 
 const API_KEY = 'AIzaSyAG3UuIUZFf3vtZbg6QZQM4DkE6pTIO9UM';
 export default {
 name: 'App',
 components: { SearchBar,
-VideoList,
-VideoDetail },
+VideoDetail,
+VideoList
+},
 data(){
   return {  
       videos: [] , selectedVideo : null
   };
 },
 methods:{
-   onVideoSelect(video) {
-this.selectedVideo = video;
+   onVideoSelect(video){
+    this.selectedVideo = video;
    },
     onTermChange(searchTearm){
         axios
